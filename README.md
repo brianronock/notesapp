@@ -67,7 +67,7 @@ cd NotesApp
 Open `GoogleAuthUiClient.kt` and replace the `setServerClientId(...)` value with your **Web client ID** from the Firebase console:
 
 ```kotlin
-.setServerClientId("YOUR_WEB_CLIENT_ID")
+.setServerClientId("YOUR_WEB_CLIENT_ID_HERE")
 ```
 
 You can find this value under **Firebase Console > Project Settings > OAuth 2.0 Client IDs**.
@@ -118,15 +118,69 @@ In Android Studio:
 
 ---
 
-## 📁 Project Structure (Summary)
+---
+
+## 🧪 Firebase SHA-1 Setup (Required for Google Sign-In)
+
+1. Generate your app’s SHA-1 fingerprint using this command:
+   ```bash
+   ./gradlew signingReport
+   ```
+   Look under `Variant: debug` for the `SHA1` key.
+
+2. Go to [Firebase Console > Project Settings > Your apps > Add Fingerprint](https://console.firebase.google.com/)
+
+3. Paste your SHA-1 and save.
+
+4. Re-download the updated `google-services.json` and replace the one in:
+   ```
+   NotesApp/app/google-services.json
+   ```
+
+5. Sync Gradle again.
+
+---
+
+## 📁 Project Structure (Complete)
 
 ```
 NotesApp/
 ├── app/
-│   ├── auth/               # GoogleAuthUiClient + Auth logic
-│   ├── data/               # Firestore repository
-│   ├── model/              # Note, User model classes
-│   ├── ui/                 # Compose screens
-│   └── viewmodel/          # ViewModels for Login, Notes, Profile
+│   ├── auth/                     # GoogleAuthUiClient and authentication logic
+│   │   └── GoogleAuthUiClient.kt
+│   ├── data/                     # Repository and data sources
+│   │   └── NotesRepository.kt
+│   ├── model/                    # Data models
+│   │   ├── Note.kt
+│   │   └── User.kt
+│   ├── ui/                       # All Jetpack Compose UI screens
+│   │   ├── screens/
+│   │   │   ├── HomeScreen.kt
+│   │   │   ├── LoginScreen.kt
+│   │   │   ├── ProfileScreen.kt
+│   │   │   ├── RegisterScreen.kt
+│   │   │   └── AddEditNoteScreen.kt
+│   │   └── components/          # UI components like TopBar, NoteCard, etc.
+│   ├── viewmodel/               # ViewModels for each screen
+│   │   ├── AuthViewModel.kt
+│   │   ├── NotesViewModel.kt
+│   │   └── ProfileViewModel.kt
+│   ├── navigation/              # Navigation graph setup
+│   │   └── NavGraph.kt
+│   └── MainActivity.kt
 ```
+
+---
+
+## ⚠️ Incomplete Features & Areas to Improve
+
+- 👤 Add Google profile picture and display name to Profile screen
+- 🛠 Implement working Edit Profile button
+- 📈 Finish statistics calculations:
+  - Most Active Day
+  - Favorite Category based on tags
+- 🏷 Organize notes by tag and make them searchable
+- 💬 Add note sharing functionality
+- 🧽 UI polish and animations for smoother transitions
+- 🌐 Google Sign-In button branding (optional)
 ```
