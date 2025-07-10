@@ -141,33 +141,42 @@ In Android Studio:
 
 ---
 
-## 📁 Project Structure (Complete)
+## 📁 Project Structure (Complete with Descriptions)
 
 ```
 NotesApp/
 ├── app/
-│   ├── auth/                     # GoogleAuthUiClient and authentication logic
-│   │   └── GoogleAuthUiClient.kt
-│   ├── data/                     # Repository and data sources
-│   │   └── NotesRepository.kt
-│   ├── model/                    # Data models
-│   │   ├── Note.kt
-│   │   └── User.kt
-│   ├── ui/                       # All Jetpack Compose UI screens
+│   ├── auth/                     
+│   │   └── GoogleAuthUiClient.kt       # Handles Google One Tap authentication logic and Firebase integration
+│
+│   ├── data/
+│   │   └── NotesRepository.kt          # Provides abstraction over Firestore data operations for notes
+│
+│   ├── model/
+│   │   ├── Note.kt                     # Data class representing a note (title, content, tags, timestamp)
+│   │   └── User.kt                     # Data class representing user details (name, email, UID)
+│
+│   ├── ui/
 │   │   ├── screens/
-│   │   │   ├── HomeScreen.kt
-│   │   │   ├── LoginScreen.kt
-│   │   │   ├── ProfileScreen.kt
-│   │   │   ├── RegisterScreen.kt
-│   │   │   └── AddEditNoteScreen.kt
-│   │   └── components/          # UI components like TopBar, NoteCard, etc.
-│   ├── viewmodel/               # ViewModels for each screen
-│   │   ├── AuthViewModel.kt
-│   │   ├── NotesViewModel.kt
-│   │   └── ProfileViewModel.kt
-│   ├── navigation/              # Navigation graph setup
-│   │   └── NavGraph.kt
-│   └── MainActivity.kt
+│   │   │   ├── HomeScreen.kt           # Displays welcome message, list of recent notes, and quick actions
+│   │   │   ├── LoginScreen.kt          # UI for login with email/password or Google Sign-In
+│   │   │   ├── ProfileScreen.kt        # Shows user profile info and basic note statistics
+│   │   │   ├── RegisterScreen.kt       # UI for registering a new account with email and password
+│   │   │   └── AddEditNoteScreen.kt    # Screen to create or edit a note, including tag management
+│   │   └── components/                 
+│   │       ├── TopBar.kt               # Custom top bar used across screens
+│   │       ├── NoteCard.kt             # Reusable composable for displaying a single note
+│   │       └── ...                     # Other UI components (e.g., buttons, fields, etc.)
+│
+│   ├── viewmodel/
+│   │   ├── AuthViewModel.kt            # Manages login, registration, and Google Sign-In state
+│   │   ├── NotesViewModel.kt           # Holds list of notes, handles creation, update, and deletion
+│   │   └── ProfileViewModel.kt         # Manages user data, statistics, and logout logic
+│
+│   ├── navigation/
+│   │   └── NavGraph.kt                 # Defines composable navigation routes using Jetpack Navigation
+│
+│   └── MainActivity.kt                 # App entry point; sets up navigation and theme
 ```
 
 ---
