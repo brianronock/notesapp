@@ -71,6 +71,47 @@ cd NotesApp
 
 ---
 
+### 🔐 Firestore Security Rules (with Full Instructions)
+
+To protect user data and allow only logged-in users to access their own information, you must configure Firestore security rules.
+
+#### 🛠️ Where to Find It
+
+1. Go to [Firebase Console](https://console.firebase.google.com/).
+2. Select your project.
+3. In the left sidebar, click **Build → Firestore Database**.
+4. Click the **Rules** tab at the top.
+5. Replace the content with the following:
+
+```js
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read, write: if request.auth.uid == userId;
+    }
+  }
+}
+```
+
+#### ✅ What This Does
+
+- A signed-in user can only access their own document in the `users` collection.
+- No public access to other users' data.
+- This rule is strongly recommended for apps using authentication.
+
+❗ If you previously used a temporary rule like this:
+
+```js
+match /{document=**} {
+  allow read, write: if true;
+}
+```
+
+That rule allowed unrestricted access and should now be removed.
+
+---
+
 ### 3. 🔑 Set Web Client ID in Code
 
 Open `GoogleAuthUiClient.kt` and replace the `setServerClientId(...)` value with your **Web client ID** from the Firebase console:
