@@ -1,5 +1,3 @@
-
-
 # 📒 NotesApp (Jetpack Compose + Firebase)
 
 NotesApp is a modern note-taking Android app built using **Jetpack Compose**, **Firebase Authentication**, and **Cloud Firestore**. It supports:
@@ -157,37 +155,48 @@ In Android Studio:
 ```
 NotesApp/
 ├── app/
-│   ├── auth/                     
-│   │   └── GoogleAuthUiClient.kt       # Handles Google One Tap authentication logic and Firebase integration
+│   ├── auth/
+│   │   └── GoogleAuthUiClient.kt       # Handles Google One Tap authentication logic and integrates with FirebaseAuth
+│
+│   ├── components/
+│   │   ├── BottomBar.kt                # Bottom navigation bar used across screens
+│   │   └── FormattingButton.kt         # Rich text formatting button for styling note content
 │
 │   ├── data/
-│   │   └── NotesRepository.kt          # Provides abstraction over Firestore data operations for notes
+│   │   └── NotesRepository.kt          # Provides abstraction for interacting with Firestore (CRUD operations for notes)
 │
 │   ├── model/
-│   │   ├── Note.kt                     # Data class representing a note (title, content, tags, timestamp)
-│   │   └── User.kt                     # Data class representing user details (name, email, UID)
-│
-│   ├── ui/
-│   │   ├── screens/
-│   │   │   ├── HomeScreen.kt           # Displays welcome message, list of recent notes, and quick actions
-│   │   │   ├── LoginScreen.kt          # UI for login with email/password or Google Sign-In
-│   │   │   ├── ProfileScreen.kt        # Shows user profile info and basic note statistics
-│   │   │   ├── RegisterScreen.kt       # UI for registering a new account with email and password
-│   │   │   └── AddEditNoteScreen.kt    # Screen to create or edit a note, including tag management
-│   │   └── components/                 
-│   │       ├── TopBar.kt               # Custom top bar used across screens
-│   │       ├── NoteCard.kt             # Reusable composable for displaying a single note
-│   │       └── ...                     # Other UI components (e.g., buttons, fields, etc.)
-│
-│   ├── viewmodel/
-│   │   ├── AuthViewModel.kt            # Manages login, registration, and Google Sign-In state
-│   │   ├── NotesViewModel.kt           # Holds list of notes, handles creation, update, and deletion
-│   │   └── ProfileViewModel.kt         # Manages user data, statistics, and logout logic
+│   │   └── Note.kt                     # Data class representing a note (title, content, tags, timestamp)
+│   │   └── (TODO) User.kt              # (Suggestion) Add model for user data like display name, email, profile image
 │
 │   ├── navigation/
-│   │   └── NavGraph.kt                 # Defines composable navigation routes using Jetpack Navigation
+│   │   ├── AppNavigation.kt            # Contains top-level navigation setup and route configuration
+│   │   └── NavGraph.kt                 # Defines composable destinations and screen transitions using Jetpack Navigation
 │
-│   └── MainActivity.kt                 # App entry point; sets up navigation and theme
+│   ├── screens/
+│   │   ├── auth/
+│   │   │   ├── LoginScreen.kt          # UI for signing in using email/password or Google Sign-In
+│   │   │   ├── ProfileScreen.kt        # Displays logged-in user's info, logout button, and placeholder for stats
+│   │   │   └── RegisterScreen.kt       # UI for creating a new user account with email and password
+│   │   ├── home/
+│   │   │   ├── EditProfileScreen.kt    # Screen for editing user display name (incomplete)
+│   │   │   └── HomeScreen.kt           # Main screen showing welcome message, recent notes, and navigation
+│   │   └── note/
+│   │       ├── AddNoteScreen.kt        # Screen to create or edit notes, includes tagging and formatting UI
+│   │       └── ViewNoteScreen.kt       # Displays the content of a selected note in read-only format
+│
+│   ├── ui/
+│   │   └── theme/
+│   │       ├── Color.kt                # Defines app color scheme and Material3 theming
+│   │       ├── Theme.kt                # Root Compose Material theme setup
+│   │       └── Type.kt                 # Font and typography definitions
+│
+│   ├── viewmodel/
+│   │   ├── AuthViewModel.kt            # Handles user authentication state and events (login, register, logout)
+│   │   └── NotesViewModel.kt           # Manages Firestore note data, live state for note list, create/edit/delete logic
+│
+│   ├── MainActivity.kt                 # App's main entry point; hosts the Compose UI and calls AppNavigation
+│   └── NotesApp.kt                     # Composable app container applying theme and surface scaffold
 ```
 
 ---
@@ -203,4 +212,3 @@ NotesApp/
 - 💬 Add note sharing functionality
 - 🧽 UI polish and animations for smoother transitions
 - 🌐 Google Sign-In button branding (optional)
-```
