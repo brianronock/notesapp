@@ -25,7 +25,7 @@ class GoogleAuthUiClient(private val context: Context) {
         .setGoogleIdTokenRequestOptions(
             BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                 .setSupported(true)
-                .setServerClientId("639251954503-e7ta4hf8lfl8dc4kj06ndl2ausf5l4dt.apps.googleusercontent.com").setFilterByAuthorizedAccounts(false) // Set to true if you only want to show accounts already used with your app
+                .setServerClientId("YOUR_WEB_CLIENT_ID").setFilterByAuthorizedAccounts(false) // Set to true if you only want to show accounts already used with your app
                 .build()
         )
         .setAutoSelectEnabled(true) // Optional: enables automatic sign-in if possible
