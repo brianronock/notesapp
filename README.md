@@ -60,6 +60,17 @@ cd NotesApp
   - Under **Your apps**, find **Web API Key** and **Web client ID**
   - Copy the **Web client ID** from the "OAuth 2.0 Client IDs" section
 
+#### 🔥 Enable Cloud Firestore
+
+1. In the [Firebase Console](https://console.firebase.google.com/):
+   - Select your project.
+   - Go to **Build > Firestore Database**.
+2. Click **Create Database**.
+3. Choose **Start in test mode** (⚠️ for development only).
+4. Select your preferred location and click **Enable**.
+
+✅ This creates a Firestore instance for storing and syncing your app’s notes.
+
 ---
 
 ### 3. 🔑 Set Web Client ID in Code
