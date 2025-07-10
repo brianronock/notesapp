@@ -168,8 +168,7 @@ fun LoginScreen(navController: NavController, googleAuthUiClient: GoogleAuthUiCl
         Spacer(modifier = Modifier.height(24.dp))
         TextButton(onClick = {
             if (!isLoading) {
-                // TODO: Navigate to your SignUp screen
-                // navController.navigate("signup")
+                navController.navigate("register")
                 error = "Signup screen not implemented yet."
             }
         }) {
@@ -177,28 +176,3 @@ fun LoginScreen(navController: NavController, googleAuthUiClient: GoogleAuthUiCl
         }
     }
 }
-
-// How to instantiate and pass GoogleAuthUiClient in our Navigation setup:
-//
-// @Composable
-// fun AppNavigation() {
-//     val navController = rememberNavController()
-//     val context = LocalContext.current
-//     val googleAuthUiClient by remember {
-//         lazy { // Use lazy if context is available, or ensure it's stable
-//             GoogleAuthUiClient(context)
-//         }
-//     }
-//
-//     NavHost(navController = navController, startDestination = "login") {
-//         composable("login") {
-//             LoginScreen(navController = navController, googleAuthUiClient = googleAuthUiClient)
-//         }
-//         composable("home") {
-//             // Assuming you check if user is signed in before navigating to home
-//             // HomeScreen(navController = navController, googleAuthUiClient = googleAuthUiClient)
-//         }
-//         // ... other routes
-//     }
-// }
-

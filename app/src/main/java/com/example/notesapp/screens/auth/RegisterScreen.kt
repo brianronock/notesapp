@@ -8,7 +8,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
-
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.ktx.firestore
 /**
  * A screen where users can register a new account using email and password.
  *
@@ -70,19 +71,35 @@ fun RegisterScreen(navController: NavController) {
                 onClick = {
                     if (password != confirmPassword) {
                         error = "Passwords do not match."
-                        //return@onClick
                         return@Button
                     }
+
                     auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                val user = FirebaseAuth.getInstance().currentUser
+                                val firebaseUser = FirebaseAuth.getInstance().currentUser
                                 val profileUpdates = UserProfileChangeRequest.Builder()
                                     .setDisplayName(name)
                                     .build()
-                                user?.updateProfile(profileUpdates)
+
+                                firebaseUser?.updateProfile(profileUpdates)
                                     ?.addOnCompleteListener {
-                                        navController.navigate("home")
+                                        val userId = firebaseUser.uid
+                                        val user = com.example.notesapp.models.User(
+                                            uid = userId,
+                                            name = name,
+                                            email = email,
+                                            profileImageUrl = "https://source.boringavatars.com/beam/120/${userId}",
+                                            registeredAt = com.google.firebase.Timestamp.now()
+                                        )
+
+                                        Firebase.firestore.collection("users").document(userId).set(user)
+                                            .addOnSuccessListener {
+                                                navController.navigate("home")
+                                            }
+                                            .addOnFailureListener { e ->
+                                                error = "Failed to save user data: ${e.message}"
+                                            }
                                     }
                             } else {
                                 error = task.exception?.message ?: "Registration failed."

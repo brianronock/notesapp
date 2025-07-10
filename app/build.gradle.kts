@@ -6,13 +6,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("com.google.gms.google-services")
 }
-val webClientId: String = project.rootProject
-    .file("local.properties")
-    .takeIf { it.exists() }
-    ?.inputStream()
-    ?.use { Properties().apply { load(it) } }
-    ?.getProperty("WEB_CLIENT_ID")
-    ?: "MISSING_WEB_CLIENT_ID"
 
 android {
     namespace = "com.example.notesapp"
@@ -24,7 +17,6 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-        buildConfigField("String", "WEB_CLIENT_ID", "\"${webClientId}\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -55,6 +47,7 @@ android {
 
 dependencies {
     implementation(platform(libs.firebase.bom))
+    implementation(libs.coil.compose)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.androidx.navigation.compose)

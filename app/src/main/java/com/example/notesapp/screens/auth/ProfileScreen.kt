@@ -7,8 +7,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.notesapp.auth.GoogleAuthUiClient // Import your client
-import com.google.firebase.auth.FirebaseUser // For type safety
+import coil.compose.AsyncImage
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import com.example.notesapp.auth.GoogleAuthUiClient
 
 @Composable
 fun ProfileScreen(
@@ -35,15 +37,23 @@ fun ProfileScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         currentUser?.let { user ->
-            Text("Welcome,", style = MaterialTheme.typography.headlineSmall)
+            // 👇 Profile picture (random but consistent)
+            AsyncImage(
+                model = user.photoUrl ?: "https://via.placeholder.com/150",
+                contentDescription = "Profile Picture",
+                modifier = Modifier
+                    .size(96.dp)
+                    .padding(8.dp),
+                contentScale = ContentScale.Crop
+            )
+
             Spacer(modifier = Modifier.height(8.dp))
+            Text("Welcome,", style = MaterialTheme.typography.headlineSmall)
             Text(user.displayName ?: "No name set", style = MaterialTheme.typography.titleLarge)
             Text(user.email ?: "No email", style = MaterialTheme.typography.bodyLarge)
-            Spacer(modifier = Modifier.height(16.dp))
             Text("UID: ${user.uid}", style = MaterialTheme.typography.bodySmall)
 
             Spacer(modifier = Modifier.height(24.dp))
-            Spacer(modifier = Modifier.height(16.dp))
             Button(onClick = {
                 navController.navigate("edit_profile")
             }) {
