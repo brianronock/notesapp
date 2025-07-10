@@ -62,21 +62,15 @@ cd NotesApp
 
 ---
 
-### 3. 🔑 Configure `local.properties`
+### 3. 🔑 Set Web Client ID in Code
 
-> ⚠️ Do NOT share this file or commit it to Git. It's in `.gitignore` by default.
+Open `GoogleAuthUiClient.kt` and replace the `setServerClientId(...)` value with your **Web client ID** from the Firebase console:
 
-Inside `local.properties`, add:
-
-```
-sdk.dir=/Users/YOUR_USERNAME/Library/Android/sdk
-WEB_CLIENT_ID=YOUR_WEB_CLIENT_ID_FROM_FIREBASE
-```
-
-If this line is missing, the app will use a dummy client ID that will not work for Google login:
 ```kotlin
-BuildConfig.WEB_CLIENT_ID = "MISSING_WEB_CLIENT_ID"
+.setServerClientId("YOUR_WEB_CLIENT_ID")
 ```
+
+You can find this value under **Firebase Console > Project Settings > OAuth 2.0 Client IDs**.
 
 ---
 
